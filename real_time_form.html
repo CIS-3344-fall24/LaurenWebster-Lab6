@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Real Time Form Feedback</title>
+</head>
+<body>
+    <h2>Enter Name:</h2>
+    <form id="nameForm">
+        <label for="name">Name:</label>
+        <input type="text" id="name" name="name"><br><br>
+        <p id="nameFeedback" style="color: red;"></p>
+    </form>
+
+    <h2>Enter Password:</h2>
+    
+    <form id="passwordForm">
+        <label for="password">Password:</label>
+        <input type="password" id="password" name="password">
+        <p id="passwordFeedback"></p>
+    </form>
+
+    <script>
+        document.getElementById('name').oninput = function() {
+            const name = this.value;
+            const feedback = document.getElementById('nameFeedback');
+
+            if (name.length < 3) {
+                feedback.textContent = 'Name must be at least 3 characters long';
+            } else {
+                feedback.textContent = ''; 
+            }
+        };
+
+        document.getElementById('password').oninput = function() {
+            const password = this.value;
+            const feedback = document.getElementById('passwordFeedback');
+
+            if (password.length < 5) {
+                feedback.textContent = 'Weak';
+                feedback.style.color = 'red';
+            } else if (password.length >= 5 && password.length <= 8) {
+                feedback.textContent = 'Medium';
+                feedback.style.color = 'orange';
+            } else if (password.length > 8) {
+                feedback.textContent = 'Strong';
+                feedback.style.color = 'green';
+            } else {
+                feedback.textContent = '';
+            }
+        };
+    </script>
+</body>
+</html>

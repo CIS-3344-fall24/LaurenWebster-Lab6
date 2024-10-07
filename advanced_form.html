@@ -1,0 +1,125 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <style>
+        .error{
+            color: red;
+            font-size: 0.9em;
+        }
+    </style>
+</head>
+<body>
+    <h1>Please Fill out the form below</h1>
+
+    <form id="validationForm">
+        <label for="name">Name:</label>
+        <input type="text" id="name">
+        <span class="error" id="nameError"></span> <br><br>
+
+        <label for="email">Email:</label>
+        <input type="text" id="email">
+        <span class="error" id="emailError"></span> <br><br>
+
+        <label for="phone">Phone:</label>
+        <input type="text" id="phone">
+        <span class="error" id="phoneError"></span> <br><br>
+
+        <label for="password">Password:</label>
+        <input type="text" id="password">
+        <span class="error" id="passwordError"></span> <br><br>
+
+        <label for="confirmPassword">Confirm Password:</label>
+        <input type="text" id="confirmPassword">
+        <span class="error" id="confirmPasswordError"></span> <br><br>
+        
+        <label for="age">Age:</label>
+        <input type="text" id="age">
+        <span class="error" id="ageError"></span> <br><br>
+
+        <label for="website">Website URL:</label>
+        <input type="text" id="website">
+        <span class="error" id="websiteError"></span> <br><br>
+
+        <button type="submit">Submit</button>
+    </form>
+
+    <script>
+        document.getElementById('validationForm').onsubmit = function(event) {
+            event.preventDefault();
+        
+
+        document.querySelectorAll('.error').forEach(e => e.textContent = '');
+
+        let valid = true;
+
+        const name = document.getElementById('name').value;
+        if (name.length < 3 || !isNaN(name)) {
+            document.getElementById('nameError').textContent = 'Name must be at least 3 characters long and cannot be purely numeric.';
+            valid = false;
+        }
+
+        const email = document.getElementById('email').value;
+        const emailPattern = /^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/;
+        if (!emailPattern.test(email)) {
+                document.getElementById('emailError').textContent = 'Please enter a valid email address.';
+                valid = false;
+        }
+
+        const phone = document.getElementById('phone').value;
+        const phonePattern = /^\d{10}$/;
+        if (!phonePattern.test(phone)) {
+                document.getElementById('phoneError').textContent = 'Phone number must be exactly 10 digits.';
+                valid = false;
+        }    
+
+        const password = document.getElementById('password').value;
+        const confirmPassword = document.getElementById('confirmPassword').value;
+        if (password.length < 8) {
+            document.getElementById('passwordError').textContent = 'Password must be at least 8 characters long.';
+            valid = false;
+        }         
+        else if (!/[A-Z]/.test(password)) {
+            document.getElementById('passwordError').textContent = 'Password must contain at least one uppercase letter.';
+            valid = false;
+        }         
+        else if (!/[a-z]/.test(password)) {
+            document.getElementById('passwordError').textContent = 'Password must contain at least one lowercase letter.';
+            valid = false;
+        }        
+        else if (!/\d/.test(password)) {
+            document.getElementById('passwordError').textContent = 'Password must contain at least one number.';
+            valid = false;
+        }         
+        else if (!/[@#]/.test(password)) {
+            document.getElementById('passwordError').textContent = 'Password must contain at least one special character (@, #).';
+            valid = false;
+        }  
+        else if (confirmPassword !== password) {
+            document.getElementById('confirmPasswordError').textContent = 'Passwords do not match.';
+            valid = false;
+        }
+
+        const age = document.getElementById('age').value;
+        if (age < 18 || age > 60) {
+                document.getElementById('ageError').textContent = 'Age must be between 18 and 60.';
+                valid = false;
+        }
+
+        const website = document.getElementById('website').value;
+        const urlPattern = /^(https?:\/\/)[\w.-]+(\.[a-z]{2,})/i;
+        if ( !urlPattern.test(website)){
+            document.getElementById('websiteError').textConte=nt = 'Please enter a valid URL starting with http:// or https://';
+            valid = false;
+        }
+
+        if (valid){
+            alert('Form successfully submitted!');
+        }
+    };
+
+    </script>
+</body>
+</html>

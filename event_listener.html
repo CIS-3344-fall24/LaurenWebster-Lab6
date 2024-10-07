@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Event Handlers</title>
+    <style>
+        #hoverDiv {
+            width: 200px;
+            height: 100px;
+            border: 1px solid black;
+            margin-top: 20px;
+        }
+    </style>
+</head>
+<body>
+    <button id="clickButton">Click Me</button>
+
+    <input type="text" id="focusInput" placeholder="Hover or focus here">
+
+    <div id="hoverDiv">Hover for a surprise</div>
+
+    <script>
+        document.getElementById('clickButton').addEventListener('click', function(){
+            alert('Button Clicked!');
+        });
+
+        const inputField = document.getElementById('focusInput');
+        inputField.addEventListener('focus', function(){
+            inputField.style.backgroundColor = 'white';
+        });
+
+        const hoverDiv = document.getElementById('hoverDiv');
+        hoverDiv.addEventListener('mouseover', function() {
+            hoverDiv.style.backgroundColor = 'yellow';
+        });
+        hoverDiv.addEventListener('mouseout', function() {
+            hoverDiv.style.backgroundColor = '';
+        });
+    </script>
+</body>
+</html>
